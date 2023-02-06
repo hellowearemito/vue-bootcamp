@@ -14,7 +14,7 @@
       {{ user.email }}
     </v-card-text>
     <v-card-actions>
-      <v-btn color="primary" variant="plain">
+      <v-btn color="primary" variant="plain" href="#/profile">
         View profile
       </v-btn>
     </v-card-actions>
