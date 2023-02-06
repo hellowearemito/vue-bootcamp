@@ -1,46 +1,13 @@
 <template>
-  <v-layout>
-    <v-app-bar
-      color="pink"
-      density="compact"
-    >
-      <template v-slot:prepend>
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      </template>
-
-      <v-app-bar-title>Mito Vue Bootcamp</v-app-bar-title>
-
-      <template v-slot:append>
-        <v-btn icon="mdi-dots-vertical"></v-btn>
-      </template>
-    </v-app-bar>
-  </v-layout>
+  <AppHeader />
   <div class="container">
     <div class="cards">
-      <v-card
+      <UserCard
         v-for="user in users"
         :key="user.phone"
+        :user="user"
         class="bg-grey-lighten-5 rounded-0"
-      >
-        <v-img
-          cover
-          :src="user.picture.large"
-        />
-        <v-card-item>
-          <v-card-title>{{ user.name.first }} {{ user.name.last }}</v-card-title>
-
-          <v-card-subtitle>{{ user.phone }}</v-card-subtitle>
-        </v-card-item>
-
-        <v-card-text>
-          {{ user.email }}
-        </v-card-text>
-        <v-card-actions>
-          <v-btn color="primary" variant="plain">
-            View profile
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+      />
     </div>
   </div>
 </template>
@@ -48,9 +15,16 @@
 <script lang="ts">
 import {defineComponent} from "vue";
 import {fetchUsers, User} from "./utils/api";
+import { default as UserCard } from './components/User.vue'
+import AppHeader from "./components/AppHeader.vue";
 
 const App = defineComponent({
   name: 'App',
+
+  components: {
+    UserCard,
+    AppHeader
+  },
 
   data () {
     return {
@@ -73,18 +47,8 @@ export default App;
   padding-top: 80px;
 }
 
-h1 {
-  margin: 5rem auto;
-}
-
 .cards {
   display: flex;
   flex-wrap: wrap;
-}
-
-.v-card {
-  width: 250px;
-  margin-right: 30px;
-  margin-bottom: 30px;
 }
 </style>
