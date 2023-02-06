@@ -10,7 +10,7 @@ This is the 1.0 version, and we have a few things to do:
 - [ ] Refactor `App.vue` to have some child component
 
 ## And our goal is to have:
-- State management
-- Localization
-- Routing
-- Well-separated component structure
+- [ ] Well-separated component structure
+- [ ] Routing
+- [ ] State management
+- [ ] Localization
