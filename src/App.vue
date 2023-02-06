@@ -58,7 +58,7 @@ export default App;
         </v-card-text>
         <v-card-actions>
           <v-btn color="primary" variant="plain">
-            call
+            View profile
           </v-btn>
         </v-card-actions>
       </v-card>
