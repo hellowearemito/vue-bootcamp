@@ -20,8 +20,23 @@ export default App;
 </script>
 
 <template>
+  <v-layout>
+    <v-app-bar
+      color="pink"
+      density="compact"
+    >
+      <template v-slot:prepend>
+        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      </template>
+
+      <v-app-bar-title>Mito Vue Bootcamp</v-app-bar-title>
+
+      <template v-slot:append>
+        <v-btn icon="mdi-dots-vertical"></v-btn>
+      </template>
+    </v-app-bar>
+  </v-layout>
   <div class="container">
-    <h1 class="text-h2 text-pink">Welcome to Mito Vue Bootcamp!</h1>
     <div class="cards">
       <v-card
         v-for="user in users"
@@ -55,6 +70,7 @@ export default App;
 .container {
   margin: auto;
   max-width: 1280px;
+  padding-top: 80px;
 }
 
 h1 {
