@@ -1,24 +1,3 @@
-<script lang="ts">
-import {defineComponent} from "vue";
-import {fetchUsers, User} from "./utils/api";
-
-const App = defineComponent({
-  name: 'App',
-
-  data () {
-    return {
-      users: [] as User[] | undefined
-    }
-  },
-
-  async mounted() {
-    const [,users] = await fetchUsers()
-    this.users = users?.data.results;
-  }
-})
-export default App;
-</script>
-
 <template>
   <v-layout>
     <v-app-bar
@@ -65,6 +44,27 @@ export default App;
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import {defineComponent} from "vue";
+import {fetchUsers, User} from "./utils/api";
+
+const App = defineComponent({
+  name: 'App',
+
+  data () {
+    return {
+      users: [] as User[] | undefined
+    }
+  },
+
+  async mounted() {
+    const [,users] = await fetchUsers()
+    this.users = users?.data.results;
+  }
+})
+export default App;
+</script>
 
 <style scoped lang="scss">
 .container {
