@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import {defineStore} from 'pinia'
 import {fetchUsers, User} from "../utils/api";
 
 export const useUsersStore = defineStore('users', {
@@ -27,5 +27,9 @@ export const useUsersStore = defineStore('users', {
     selectedUser (state) {
       return state.users?.find((user: User) => user.phone === state.selectedUserId)
     }
+  },
+
+  persist: {
+    storage: sessionStorage
   }
 })
