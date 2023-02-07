@@ -14,7 +14,7 @@
       {{ user.email }}
     </v-card-text>
     <v-card-actions>
-      <v-btn color="primary" variant="plain" href="#/profile">
+      <v-btn color="primary" variant="plain" @click="onViewProfileClick">
         View profile
       </v-btn>
     </v-card-actions>
@@ -27,10 +27,21 @@ import type { User } from "../utils/api";
 
 const User = defineComponent({
   name: 'User',
+
+  emits: {
+    click (payload: {id: string}) {}
+  },
+
   props: {
     user: {
       type: Object as PropType<User>,
       required: true
+    }
+  },
+
+  methods: {
+    onViewProfileClick () {
+      this.$emit('click', {id: this.user.phone})
     }
   }
 })

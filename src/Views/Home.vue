@@ -5,14 +5,16 @@
       :key="user.phone"
       :user="user"
       class="bg-grey-lighten-5 rounded-0"
+      @click="onProfileCardClick"
     />
   </div>
 </template>
 
 <script lang="ts">
 import {defineComponent} from "vue";
+import { mapActions, mapState } from "pinia";
 import { default as UserCard } from '../components/User.vue'
-import { fetchUsers, User } from "../utils/api";
+import { useUsersStore } from "../store/users";
 
 const Home = defineComponent({
   name: 'Home',
@@ -20,15 +22,21 @@ const Home = defineComponent({
     UserCard
   },
 
-  data () {
-    return {
-      users: [] as User[] | undefined
-    }
+  async mounted() {
+    await this.initialize()
   },
 
-  async mounted() {
-    const [,users] = await fetchUsers()
-    this.users = users?.data.results;
+  computed: {
+    ...mapState(useUsersStore, ['users'])
+  },
+
+  methods: {
+    ...mapActions(useUsersStore, ['setSelectedUserId', 'initialize']),
+
+    onProfileCardClick (payload: {id: string}) {
+      this.setSelectedUserId(payload.id)
+      this.$router.push({ path: `profile/${payload.id}` })
+    }
   }
 })
 

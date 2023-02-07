@@ -3,5 +3,5 @@ import Profile from "../Views/Profile.vue";
 
 export const routes = [
   { path: '/', component: Home },
-  { path: '/profile', component: Profile }
+  { path: '/profile/:id', component: Profile }
 ]
