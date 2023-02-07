@@ -14,3 +14,4 @@ This is the 1.0 version, and we have a few things to do:
 - [ ] Routing
 - [ ] State management
 - [ ] Localization
+- [ ] Handling forms
