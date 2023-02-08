@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import {fetchUsers, User} from "../utils/api";
+import {delay, fetchUsers, User} from "../utils/api";
 
 export const useUsersStore = defineStore('users', {
   state: () => {
@@ -20,12 +20,23 @@ export const useUsersStore = defineStore('users', {
 
     setSelectedUserId (id: string) {
       this.selectedUserId = id;
+    },
+
+    async updateSelectedUserNotes (notes: { timestamp: Date, notes: string }) {
+      await delay(1000)
+      localStorage.setItem(this.selectedUserId, JSON.stringify(
+        [...JSON.parse(localStorage.getItem(this.selectedUserId) || '[]'), notes]
+      ))
     }
   },
 
   getters: {
     selectedUser (state) {
       return state.users?.find((user: User) => user.phone === state.selectedUserId)
+    },
+
+    selectedUserNotes (state) {
+      return JSON.parse(localStorage.getItem(state.selectedUserId) || '[]')
     }
   },
 

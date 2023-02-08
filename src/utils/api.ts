@@ -1,5 +1,6 @@
 import axios from "axios";
 import to from 'await-to-js'
+import user from "../components/User.vue";
 
 export type User = {
   email: string,
@@ -22,5 +23,8 @@ interface UsersResponse {
   }
 }
 
+export const delay = (ms: number) => new Promise((res: Function) => setTimeout(res, ms));
+
 export const fetchUsers = async () =>
-  await to<UsersResponse>(axios.get('https://randomuser.me/api/?results=10'));
+  await to<UsersResponse>(axios.get('https://randomuser.me/api/?results=10&seed=mito-vue-bootcamp'));
+
