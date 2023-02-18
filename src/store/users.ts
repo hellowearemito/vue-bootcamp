@@ -1,10 +1,16 @@
 import {defineStore} from 'pinia'
 import {delay, fetchUsers, User} from "../utils/api";
 
+export type UserNotes = {
+  timestamp: Date,
+  notes: string
+}
+
 export const useUsersStore = defineStore('users', {
   state: () => {
     return {
       users: [] as User[] | undefined,
+      _selectedUserNotes: [] as UserNotes[] | undefined,
       selectedUserId: {} as string
     }
   },
@@ -18,8 +24,9 @@ export const useUsersStore = defineStore('users', {
       this.users = users?.data.results;
     },
 
-    setSelectedUserId (id: string) {
+    initializeSelectedUser (id: string) {
       this.selectedUserId = id;
+      this._selectedUserNotes = JSON.parse(localStorage.getItem(this.selectedUserId) || '[]');
     },
 
     async updateSelectedUserNotes (notes: { timestamp: Date, notes: string }) {
@@ -27,6 +34,8 @@ export const useUsersStore = defineStore('users', {
       localStorage.setItem(this.selectedUserId, JSON.stringify(
         [...JSON.parse(localStorage.getItem(this.selectedUserId) || '[]'), notes]
       ))
+
+      this._selectedUserNotes = JSON.parse(localStorage.getItem(this.selectedUserId) || '[]');
     }
   },
 
@@ -36,7 +45,7 @@ export const useUsersStore = defineStore('users', {
     },
 
     selectedUserNotes (state) {
-      return JSON.parse(localStorage.getItem(state.selectedUserId) || '[]')
+      return state._selectedUserNotes
     }
   },
 

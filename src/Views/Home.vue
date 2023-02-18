@@ -31,10 +31,10 @@ const Home = defineComponent({
   },
 
   methods: {
-    ...mapActions(useUsersStore, ['setSelectedUserId', 'initialize']),
+    ...mapActions(useUsersStore, ['initializeSelectedUser', 'initialize']),
 
     onProfileCardClick (payload: {id: string}) {
-      this.setSelectedUserId(payload.id)
+      this.initializeSelectedUser(payload.id)
       this.$router.push({ path: `profile/${payload.id}` })
     }
   }

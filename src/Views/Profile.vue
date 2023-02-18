@@ -21,11 +21,19 @@
     <hr>
     <v-list lines="one">
       <v-list-item
-        v-for="item in selectedUserNotes"
+        v-for="item in orderedNotes"
         :key="item.timestamp.toString()"
         :subtitle="new Date(item.timestamp).toGMTString()"
-        :title="item.notes"
-      />
+      >
+        <div class="list-item-content">
+          <div>{{ item.notes }}</div>
+          <v-btn
+            class="delete"
+            size="small"
+            color="white"
+          >❌</v-btn>
+        </div>
+      </v-list-item>
     </v-list>
   </div>
 </template>
@@ -36,7 +44,7 @@ import {mapActions, mapState} from "pinia";
 import { Field, Form } from 'vee-validate';
 import * as yup from 'yup';
 
-import {useUsersStore} from "../store/users";
+import {UserNotes, useUsersStore} from "../store/users";
 
 const ProfilePage = defineComponent({
   name: 'ProfilePage',
@@ -66,6 +74,10 @@ const ProfilePage = defineComponent({
 
     fullName (): string {
       return `${this.selectedUser?.name.first} ${this.selectedUser?.name.last}`
+    },
+
+    orderedNotes (): UserNotes[] | undefined {
+      return this.selectedUserNotes?.reverse()
     }
   },
 
@@ -89,3 +101,24 @@ const ProfilePage = defineComponent({
 
 export default ProfilePage
 </script>
+
+<style lang="scss" scoped>
+.list-item-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+
+  &:hover {
+    background: #f2f2f2;
+
+    .delete {
+      visibility: visible;
+    }
+  }
+
+  .delete {
+    visibility: hidden;
+  }
+}
+</style>

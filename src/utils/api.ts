@@ -1,6 +1,5 @@
 import axios from "axios";
 import to from 'await-to-js'
-import user from "../components/User.vue";
 
 export type User = {
   email: string,
@@ -9,9 +8,7 @@ export type User = {
     first: string,
     last: string
   },
-
   phone: string
-
   picture: {
     thumbnail: string
     large: string
