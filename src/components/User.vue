@@ -12,6 +12,7 @@
 
     <v-card-text>
       {{ user.email }}
+      <p v-if="user.notesCount" v-html="$t('user_note_count', [user.notesCount])" />
     </v-card-text>
     <v-card-actions>
       <v-btn color="primary" variant="plain" @click="onViewProfileClick">

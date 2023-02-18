@@ -4,15 +4,41 @@
       color="pink"
       density="compact"
     >
-      <template v-slot:prepend>
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      </template>
-
-      <v-app-bar-title>Mito Vue Bootcamp</v-app-bar-title>
-
       <template v-slot:append>
-        <v-btn icon="mdi-dots-vertical"></v-btn>
+        <v-btn @click="changeLocale">{{ localeIcon }}</v-btn>
       </template>
+
+      <v-app-bar-title><a href="/">Mito Vue Bootcamp</a></v-app-bar-title>
+
     </v-app-bar>
   </v-layout>
 </template>
+
+<script lang="ts">
+import {defineComponent} from "vue";
+
+const AppHeader = defineComponent({
+  name: 'AppHeader',
+
+  methods: {
+    changeLocale () {
+      this.$i18n.locale = this.$i18n.locale === 'en' ? 'hu' : 'en';
+    }
+  },
+
+  computed: {
+    localeIcon () {
+      return this.$i18n.locale === 'hu' ? '🇺🇸' : '🇭🇺'
+    }
+  }
+})
+
+export default AppHeader;
+</script>
+
+<style lang="scss" scoped>
+a {
+  color: #fff;
+  text-decoration: none;
+}
+</style>

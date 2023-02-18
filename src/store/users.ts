@@ -9,7 +9,7 @@ export type UserNotes = {
 export const useUsersStore = defineStore('users', {
   state: () => {
     return {
-      users: [] as User[] | undefined,
+      _users: [] as User[] | undefined,
       _selectedUserNotes: [] as UserNotes[] | undefined,
       selectedUserId: {} as string
     }
@@ -21,7 +21,7 @@ export const useUsersStore = defineStore('users', {
 
       if (error) return console.error('Failed to fetch users, terminating app.')
 
-      this.users = users?.data.results;
+      this._users = users?.data.results;
     },
 
     initializeSelectedUser (id: string) {
@@ -40,8 +40,15 @@ export const useUsersStore = defineStore('users', {
   },
 
   getters: {
+    users (state) {
+      return state._users?.map(user => ({
+        ...user,
+        notesCount: JSON.parse(localStorage.getItem(user.phone) || '[]').length
+      }))
+    },
+
     selectedUser (state) {
-      return state.users?.find((user: User) => user.phone === state.selectedUserId)
+      return state._users?.find((user: User) => user.phone === state.selectedUserId)
     },
 
     selectedUserNotes (state) {
