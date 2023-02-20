@@ -21,13 +21,13 @@ const AppHeader = defineComponent({
   name: 'AppHeader',
 
   methods: {
-    changeLocale () {
+    changeLocale (): void {
       this.$i18n.locale = this.$i18n.locale === 'en' ? 'hu' : 'en';
     }
   },
 
   computed: {
-    localeIcon () {
+    localeIcon (): string {
       return this.$i18n.locale === 'hu' ? '🇺🇸' : '🇭🇺'
     }
   }
